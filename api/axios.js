@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "http://localhost:8080/api/employee"
+    baseURL: "https://pagination-sorting-filtering-backend.onrender.com/api/employee"
 })
 
 export default api;
