@@ -28,15 +28,25 @@ const EmployeeForm = () => {
 
   const handleAddEmployee = async () => {
     const payload = {
-        ...values,
-        joiningDate: values.joiningDate ? values.joiningDate.toISOString() : null
-    }
-    const toastId = toast.loading("Adding employee...")
-     try {
-        await addEmployee(payload)
-        toast.success("Employee added successfully", { id: toastId })
+      ...values,
+      joiningDate: values.joiningDate ? values.joiningDate.toISOString() : null,
+    };
+    const toastId = toast.loading("Adding employee...");
+    try {
+      await addEmployee(payload);
+      toast.success("Employee added successfully", { id: toastId });
+      setValues({
+        name: "",
+        department: "",
+        joiningDate: null,
+      });
     } catch (error) {
-        toast.error("Something went wrong", { id: toastId })
+      toast.error("Something went wrong", { id: toastId });
+      setValues({
+        name: "",
+        department: "",
+        joiningDate: null,
+      });
     }
   };
 
@@ -93,14 +103,20 @@ const EmployeeForm = () => {
                   className="w-70 justify-start text-left font-normal data-[empty=true]:text-muted-foreground"
                 >
                   <CalendarIcon />
-                  {values.joiningDate ? format(values.joiningDate, "PPP") : <span>Pick a date</span>}
+                  {values.joiningDate ? (
+                    format(values.joiningDate, "PPP")
+                  ) : (
+                    <span>Pick a date</span>
+                  )}
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0">
                 <Calendar
                   mode="single"
                   selected={values.joiningDate}
-                  onSelect={(date) => setValues({...values, joiningDate: date})}
+                  onSelect={(date) =>
+                    setValues({ ...values, joiningDate: date })
+                  }
                 />
               </PopoverContent>
             </Popover>
