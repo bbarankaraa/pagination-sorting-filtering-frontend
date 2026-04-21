@@ -112,7 +112,7 @@ const EmployeeForm = () => {
             className="w-full hover:bg-accent-foreground cursor-pointer"
             onClick={handleAddEmployee}
           >
-            Login
+            Add Employee
           </Button>
         </CardFooter>
       </Card>

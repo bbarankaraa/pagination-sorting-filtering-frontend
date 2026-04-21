@@ -67,9 +67,9 @@ const EmployeeList = () => {
         filters.search,
       );
       setEmployees(res.data);
-      toast.success("Employee added successfully", { id: toastId })
+      toast.success("Employees loaded successfully", { id: toastId })
     } catch (err) {
-      toast.error("Something went wrong", { id: toastId })
+      toast.error("Failed to fetch employees", { id: toastId })
       console.log(err);
     }
   };
