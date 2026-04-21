@@ -1,14 +1,4 @@
 "use client";
-
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import {
   Select,
   SelectContent,
@@ -22,7 +12,6 @@ import { useEffect, useState } from "react";
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
@@ -32,6 +21,7 @@ import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import EmployeeTable from "./EmployeeTable";
+import toast from "react-hot-toast";
 
 const filterItems = [
   { value: "name-asc", label: "İsme göre sırala A-Z" },
@@ -58,12 +48,8 @@ const EmployeeList = () => {
     handleFetch();
   }, []);
 
-  useEffect(() => {
-    console.log(employees, "çalışanlar");
-    console.log(employees.length);
-  }, [employees]);
-
   const handleFetch = async (pageNo, pageSize, sortBy, sortDir, search) => {
+    const toastId = toast.loading("Fetching employees...")
     try {
       const filters = {
         pageNo: pageNo ?? currentFilters.pageNo,
@@ -81,7 +67,9 @@ const EmployeeList = () => {
         filters.search,
       );
       setEmployees(res.data);
+      toast.success("Employee added successfully", { id: toastId })
     } catch (err) {
+      toast.error("Something went wrong", { id: toastId })
       console.log(err);
     }
   };
@@ -151,13 +139,13 @@ const EmployeeList = () => {
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious
-            onClick={() => {
+              onClick={() => {
                 if (currentPage != 1) {
                   handleFetch(currentPage - 1, 5, null, null, null);
                   setCurrentPage(currentPage - 1);
                 } else {
                   handleFetch(3, 5, null, null, null);
-                  setCurrentPage(3)
+                  setCurrentPage(3);
                 }
               }}
             />
@@ -203,7 +191,7 @@ const EmployeeList = () => {
                   setCurrentPage(currentPage + 1);
                 } else {
                   handleFetch(1, 5, null, null, null);
-                  setCurrentPage(1)
+                  setCurrentPage(1);
                 }
               }}
             />

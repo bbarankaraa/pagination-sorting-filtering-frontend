@@ -11,3 +11,7 @@ export const fetchAllEmployees = (pageNo, pageSize, sortBy, sortDir, search) => 
 
     return api.get("/all", { params });
 };
+
+export const addEmployee = (payload) => {
+    return api.post("/save",payload)
+}
